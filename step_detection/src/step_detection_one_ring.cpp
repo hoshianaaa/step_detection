@@ -8,7 +8,6 @@
 #define RING_RAD 1.8
 #define alpha 0.9
 #define beta 1.1
-int count = 0;
 
 class get_one_ring
 {
@@ -20,7 +19,6 @@ private:
     ros::Publisher pub_;
     ros::Publisher angular_pub_;
     ros::Publisher filtered_pub_;
-    //ros::Publisher max_pub_;
     void pointsCallback(const sensor_msgs::PointCloud2ConstPtr& msg);
 };
 
@@ -28,7 +26,6 @@ get_one_ring::get_one_ring(){
     sub_ = nh_.subscribe("velodyne_points", 1000, &get_one_ring::pointsCallback,this);
     pub_ = nh_.advertise<sensor_msgs::PointCloud2>("one_ring", 2, true);
     angular_pub_ = nh_.advertise<sensor_msgs::PointCloud2>("angular_ring", 2, true);
-    //max_pub_ = nh_.advertise<sensor_msgs::PointCloud2>("max_ring", 2, true);
     filtered_pub_ = nh_.advertise<sensor_msgs::PointCloud2>("filtered_ring", 2, true);
 }
 
@@ -149,7 +146,6 @@ int main(int argc, char** argv)
 {
     ros::init(argc, argv, "step_detection_one_ring");
     get_one_ring x;
-    std::cout << "test!" << std::endl;
     ros::spin();
     return 0;
 }
