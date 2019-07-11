@@ -35,7 +35,8 @@ get_one_ring::get_one_ring(){
 void get_one_ring::pointsCallback(const sensor_msgs::PointCloud2ConstPtr& msg){
 
 
-    //publish one_ring
+
+    //one_ring
     pcl::PointCloud<pcl::PointXYZ> cloud_pcl;
     cloud_pcl.width = msg->height * msg->width / 8;
     cloud_pcl.height = 1;
@@ -112,37 +113,6 @@ void get_one_ring::pointsCallback(const sensor_msgs::PointCloud2ConstPtr& msg){
     angular_ring.header.frame_id = "velodyne";
     angular_pub_.publish(angular_ring);
 
-
-
-/*
-    //max_ring
-    int ang_size = angular_cut_list.size();
-    float d = 0;
-    float max_d = 0;
-    int max_index = 0;
-    for(int i=0;i<ang_size;i++)
-    {
-
-        d = sqrt((angular_pcl.points[i].x * angular_pcl.points[i].x) + (angular_pcl.points[i].y * angular_pcl.points[i].y));
-        if(d > max_d)
-        {
-            max_d = d;
-            max_index = i;
-        }
-    }
-    pcl::PointCloud<pcl::PointXYZ> max_pcl;
-    max_pcl.width = 1;
-    max_pcl.height = 1;
-    max_pcl.resize(1);
-    max_pcl.points[0].x = angular_pcl.points[max_index].x;
-    max_pcl.points[0].y = angular_pcl.points[max_index].y;
-    max_pcl.points[0].z = angular_pcl.points[max_index].z;
-
-    sensor_msgs::PointCloud2 max_ring;
-    pcl::toROSMsg(max_pcl, max_ring);
-    max_ring.header.frame_id = "velodyne";
-    max_pub_.publish(max_ring);
-*/
 
 
     //filtered_ring
